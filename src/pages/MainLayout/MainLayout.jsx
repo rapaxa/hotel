@@ -1,7 +1,7 @@
 import Header from "../../components/header";
 import Main from "../../components/Main";
 
-const MainPage =()=>{
+const MainLayout =()=>{
     return(
         <>
             <Header/>
@@ -9,4 +9,4 @@ const MainPage =()=>{
         </>
     )
 }
-export default MainPage
+export default MainLayout

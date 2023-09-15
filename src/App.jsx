@@ -1,9 +1,11 @@
 import './App.css';
-import Auth from "./pages/auth/auth";
+import AuthGoogle from "./components/Author/AuthGoogle";
+import Register from "./components/Author/RegistrNewUser";
 import { BrowserRouter as Router, Navigate, Route, Routes } from 'react-router-dom';
 import { useSelector } from "react-redux";
-import MainPage from "./pages/MainPage/MainPage";
+import MainLayout from "./pages/MainLayout/MainLayout";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import AuthLoginWithPas from "./components/Author/AuthLoginWithPas";
 
 function App() {
     const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
@@ -12,10 +14,10 @@ function App() {
             <Router>
                 <Routes>
                     {/* Маршрут для страницы авторизации */}
-                    <Route path="/auth" element={isAuthenticated ? <Navigate to="/profile" /> : <Auth />} />
+                    <Route path="/auth" element={isAuthenticated ? <Navigate to="/profile" /> : <AuthLoginWithPas />} />
 
                     {/* Маршрут для страницы профиля */}
-                    <Route path="/profile" element={isAuthenticated ? <MainPage /> : <Navigate to="/auth" />} />
+                    <Route path="/profile" element={isAuthenticated ? <MainLayout /> : <Navigate to="/auth" />} />
 
                     {/* Маршрут по умолчанию, перенаправляющий на страницу авторизации */}
                     <Route path="/" element={<Navigate to="/auth" />} />

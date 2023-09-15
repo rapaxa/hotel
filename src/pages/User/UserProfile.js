@@ -2,8 +2,8 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { logout } from '../../redux/slice/auth';
 import { useNavigate } from 'react-router-dom';
-import '../../components/header.css'; // Импортируйте стили
-import './UserProfile.css'; // Импортируйте стили для UserProfile (можете создать файл UserProfile.css)
+import '../../components/header.css';
+import './UserProfile.css';
 
 const UserProfile = () => {
     const user = useSelector((state) => state.auth.user);
@@ -26,7 +26,6 @@ const UserProfile = () => {
                 <div className="user-details">
                     <p className="user-name">{user.displayName}</p>
                     <p className="user-email">{user.email}</p>
-                    {/* Добавьте другие данные о пользователе здесь */}
                 </div>
             </div>
             <button

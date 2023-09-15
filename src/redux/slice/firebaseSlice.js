@@ -1,15 +1,15 @@
 // firebaseSlice.js
 
 import { createSlice } from '@reduxjs/toolkit';
-import { fetchFirebaseData } from '../thunks/firebaseThunks'; // Импортируйте Thunk
+import { fetchFirebaseData } from '../thunks/firebaseThunks';
 
 const firebaseSlice = createSlice({
     name: 'firebase',
     initialState: {
-        data: null, // Начальное состояние без данных
-        status: 'idle', // Статус асинхронной операции ('idle', 'loading', 'succeeded', 'failed')
-        error: null, // Ошибка, если операция завершилась с ошибкой
-        database: null, // Этот объект должен быть настроен на вашей стороне
+        data: null,
+        status: 'idle',
+        error: null,
+        database: null,
     },
     reducers: {},
     extraReducers: (builder) => {

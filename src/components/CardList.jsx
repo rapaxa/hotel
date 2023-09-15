@@ -6,16 +6,16 @@ import { fetchFirebaseData } from '../redux/thunks/firebaseThunks';
 
 const CardList = () => {
     const dispatch = useDispatch();
-    const [isLoading, setIsLoading] = useState(true); // Состояние для отслеживания загрузки
+    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
         dispatch(fetchFirebaseData())
             .then(() => {
-                setIsLoading(false); // Установите isLoading в false после завершения загрузки
+                setIsLoading(false);
             })
             .catch((error) => {
                 console.error('Error fetching data:', error);
-                setIsLoading(false); // Также установите isLoading в false в случае ошибки
+                setIsLoading(false);
             });
     }, [dispatch]);
 

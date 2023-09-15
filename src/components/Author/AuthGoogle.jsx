@@ -4,10 +4,8 @@ import { auth } from '../../firebase/firebase';
 import { useSelector, useDispatch } from 'react-redux';
 import { loginSuccess, loginFailure, logout } from '../../redux/slice/auth';
 
-const Auth = () => {
-    const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
-    const user = useSelector((state) => state.auth.user);
-    const error = useSelector((state) => state.auth.error);
+const AuthGoogle = () => {
+
     const dispatch = useDispatch();
 
     const handleGoogleSignIn = async () => {
@@ -23,7 +21,7 @@ const Auth = () => {
                     photoURL: user.photoURL,
                     email:user.email
                 };
-                dispatch(loginSuccess(userData)); // Передаем только необходимые данные о пользователе
+                dispatch(loginSuccess(userData));
             })
             .catch((error) => {
                 // Обработка ошибок аутентификации.
@@ -52,5 +50,5 @@ const Auth = () => {
     );
 };
 
-export default Auth;
+export default AuthGoogle;
 
