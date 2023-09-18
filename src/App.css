@@ -1,6 +1,12 @@
 .App {
   text-align: center;
+  background-color: rgba(210, 208, 208, 0.53);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Высота экрана */
 }
+
 
 .App-logo {
   height: 40vmin;
