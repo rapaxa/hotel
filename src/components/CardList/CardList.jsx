@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import './CardList.css';
 import { Button } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchFirebaseData } from '../redux/thunks/firebaseThunks';
+import { fetchFirebaseData } from '../../redux/thunks/firebaseThunks';
 
 const CardList = () => {
     const dispatch = useDispatch();
@@ -39,7 +39,6 @@ const CardList = () => {
             ) : (
                 memoizedData.map((card) => (
                     <div className="card" key={card.id}>
-                        <img src={card.imageUrl} alt={card.title} />
                         <h3>{card.title}</h3>
                         <p>{card.description}</p>
                         <div className="button-container">

@@ -1,0 +1,14 @@
+
+.header{
+    height: 50px;
+}
+.user-avatar{
+    width: 40px;
+    height: 40px;
+
+}
+.logo-name{
+    font-family: 'Pinyon Script', cursive ;
+    font-size: 23px;
+
+}

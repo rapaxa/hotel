@@ -64,8 +64,10 @@ const Auth = () => {
     };
 
     return (
-        <div className="main container-lg bg-white w-50 h-50">
-            <form onSubmit={handleSubmit(signInWithEmail)}>
+        <div className="container d-flex justify-content-center align-items-center w-100 h-100 ">
+            <div className="main d-flex align-items-center justify-content-center w-100  ">
+            <form className="w-100" onSubmit={handleSubmit(signInWithEmail)}>
+                <div className="main container-lg bg-white w-50 h-50 p-3">
                 <h5 className="d-flex align-self-start p-2">Авторизация</h5>
                 <div className="mb-3 row align-items-center">
                     <label htmlFor="username" className="col-sm-4 col-form-label">Username:</label>
@@ -87,9 +89,10 @@ const Auth = () => {
                     <button type="submit" className="btn btn-primary">Sign in</button>
                     <button onClick={signInWithGoogle} className="btn btn-danger">Sign with Google</button>
                 </div>
-
+                </div>
             </form>
 
+            </div>
         </div>
     )
 }
