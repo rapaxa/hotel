@@ -1,11 +1,13 @@
-import React, { useEffect, useMemo, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchFirebaseData } from "../../redux/thunks/firebaseThunks";
+import React, {useEffect, useMemo, useState} from "react";
+import {useDispatch, useSelector} from "react-redux";
+import {fetchFirebaseData} from "../../redux/thunks/firebaseThunks";
+import SingleRoom from "../../pages/SingleRoom/SingleRoom";
+import {Link} from "react-router-dom";
 
 const TodoRooms = () => {
     const dispatch = useDispatch();
     const [isLoading, setIsLoading] = useState(true);
-    const [post, setPost] = useState({ start: 0, end: 10 }); // Начальное и конечное значение для отображения
+    const [post, setPost] = useState({start: 0, end: 10}); // Начальное и конечное значение для отображения
     const data = useSelector((state) => state.db.data);
     const memoizedData = useMemo(() => data, [data]);
 
@@ -21,16 +23,17 @@ const TodoRooms = () => {
     }, [dispatch]);
 
     const handleShowMorePosts = () => {
-        if(memoizedData.length <= post.end){
+        if (memoizedData.length <= post.end) {
             console.log('No more')
-        }else{
-            setPost({ start: post.start + 10, end: post.end + 10 });
+        } else {
+            setPost({start: post.start + 10, end: post.end + 10});
         }
 
     };
     const handleShowBackPosts = () => {
-        setPost({ start: post.start - 10, end: post.end - 10 });
+        setPost({start: post.start - 10, end: post.end - 10});
     };
+
 
     return (
         <>
@@ -42,6 +45,7 @@ const TodoRooms = () => {
                     <th scope="col">Occupancy</th>
                     <th scope="col">Price</th>
                     <th scope="col">Guest</th>
+                    <th scope="col">Select</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -57,6 +61,9 @@ const TodoRooms = () => {
                             <td>{item.Occupancy}</td>
                             <td>{item.Price}</td>
                             <td>{item.Guest}</td>
+                            <td>
+                                <Link to={`/rooms?roomId=${item.Number}`} className="btn btn-primary">More information</Link>
+                            </td>
                         </tr>
                     ))
                 )}

@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import MainLayout from "./pages/MainLayout/MainLayout";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Auth from "./pages/auth/auth";
+import SingleRoom from "./pages/SingleRoom/SingleRoom";
 
 function App() {
     const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
@@ -12,13 +13,14 @@ function App() {
             <Router>
                 <Routes>
                     {/* Маршрут для страницы авторизации */}
-                    <Route path="/auth" element={isAuthenticated ? <Navigate to="/profile" /> : <Auth />} />
+                    <Route path="/login" element={isAuthenticated ? <Navigate to="/" /> : <Auth />} />
 
                     {/* Маршрут для страницы профиля */}
-                    <Route path="/profile" element={isAuthenticated ? <MainLayout /> : <Navigate to="/auth" />} />
+                    <Route path="/" element={isAuthenticated ? <MainLayout /> : <Navigate to="/login" />} />
 
                     {/* Маршрут по умолчанию, перенаправляющий на страницу авторизации */}
-                    <Route path="/" element={<Navigate to="/auth" />} />
+                    <Route path="/" element={<Navigate to="/login" />} />
+                    <Route path="/rooms" element={isAuthenticated ? <SingleRoom/>:<Navigate to="/login" /> } />
                 </Routes>
             </Router>
         </div>
