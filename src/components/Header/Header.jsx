@@ -30,8 +30,8 @@ const Header = () => {
                 </div>
                 <div className="user-info d-flex align-items-center">
                     <img
-                        src={user.photoURL}
-                        alt={user.displayName}
+                        // src={user.photoURL}
+                        // alt={user.displayName}
                         className="user-avatar rounded-circle d-flex "
                     />
                     <button

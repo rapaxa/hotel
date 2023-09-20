@@ -4,12 +4,7 @@ import Main from "../../components/Main";
 const MainLayout =()=>{
     return(
        <>
-           <Header/>
-
-               <div className="container-md">
                    <Main/>
-               </div>
-
        </>
 
     )
