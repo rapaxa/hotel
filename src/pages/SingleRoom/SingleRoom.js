@@ -1,6 +1,7 @@
 import React from 'react';
-import {useLocation} from "react-router-dom";
+import {Link, useLocation} from "react-router-dom";
 import {HomeFilled} from "@ant-design/icons";
+import {NavLink} from "react-bootstrap";
 
 const SingleRoom =(props)=> {
     const location = useLocation();
@@ -9,8 +10,10 @@ const SingleRoom =(props)=> {
     return (
         <div>
              <section className="Back d-flex align-content-center align-items-center px-3">
+                 <Link to ="/" className="d-flex align-content-center align-items-center text-decoration-none">
                  <HomeFilled style={{color:"blue"}}/>
                  <span style={{color:"blue"}}>Back Home</span>
+                 </Link>
              </section>
             <section className="data-room d-flex w-100 justify-content-between">
                 <section className="d-flex w-50 d-flex ">
