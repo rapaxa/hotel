@@ -12,10 +12,10 @@ const Header = () => {
     const navigate = useNavigate();
 
     const handleLogout = () => {
-        if(user.isAuthenticated){
+        if (user.isAuthenticated) {
             dispatch(logout());
             navigate('/login');
-        }else{
+        } else {
             navigate('/')
         }
 
@@ -26,31 +26,31 @@ const Header = () => {
         <header className="header  bg-dark d-flex ">
             <div className="user container-md profile d-flex justify-content-between w-100 h-100 ">
                 <div className="logo px-4 text-light d-flex flex-column align-items-center">
-                <Link className="text-decoration-none text-white" to = "/">
-                    <span className="logo-name d-flex justify-content-center ">Hotel</span>
-                    <div className='d-flex flex-row justify-content-center '>
-                        {Array.from({ length: numberOfComponents }, (_, index) => (
-                            <StarFilled  style={{ fontSize: '10px', }} key={index} />
-                        ))}
-                    </div>
-                </Link>
+                    <Link className="text-decoration-none text-white" to="/">
+                        <span className="logo-name d-flex justify-content-center ">Hotel</span>
+                        <div className='d-flex flex-row justify-content-center '>
+                            {Array.from({length: numberOfComponents}, (_, index) => (
+                                <StarFilled style={{fontSize: '10px',}} key={index}/>
+                            ))}
+                        </div>
+                    </Link>
 
                 </div>
                 <div className="user-info d-flex align-items-center">
                     {user.isAuthenticated ?
                         <img
-                            src={user.user.photoURL ? user.user.photoURL : '/img.png' }
+                            src={user.user.photoURL ? user.user.photoURL : '/img.png'}
                             alt={user.user.displayName}
                             className="user-avatar rounded-circle d-flex "
                         />
-                    :
-                    ""}
+                        :
+                        ""}
 
                     <button
                         className="btn text-light "
                         onClick={handleLogout}
                     >
-                        {user.isAuthenticated? 'Log Out': 'Sign'}
+                        {user.isAuthenticated ? 'Log Out' : 'Sign'}
 
                     </button>
                 </div>

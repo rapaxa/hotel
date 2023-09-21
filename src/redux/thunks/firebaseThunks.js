@@ -7,7 +7,8 @@ export const fetchFirebaseData = createAsyncThunk (
     'firebase/fetchData',
     async (_, thunkAPI) => {
        try {
-            const dataBaseRef = ref(database, `/hotels/`);
+           console.log('Starting fetchFirebaseData');
+           const dataBaseRef = ref(database, `/hotels/`);
             return new Promise((resolve, reject) => {
                 onValue(dataBaseRef, (snapshot) => {
                     const data = snapshot.val();

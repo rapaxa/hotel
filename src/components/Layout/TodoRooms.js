@@ -1,19 +1,20 @@
 import React, {useEffect, useMemo, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {fetchFirebaseData} from "../../redux/thunks/firebaseThunks";
-import SingleRoom from "../../pages/SingleRoom/SingleRoom";
 import {Link} from "react-router-dom";
 
 const TodoRooms = () => {
     const dispatch = useDispatch();
     const [isLoading, setIsLoading] = useState(true);
-    const [post, setPost] = useState({start: 0, end: 10}); // Начальное и конечное значение для отображения
+    const [page, setPage] = useState(0); // Текущая страница
+    const itemsPerPage = 10; // Количество элементов на странице
     const data = useSelector((state) => state.db.data);
     const memoizedData = useMemo(() => data, [data]);
 
     useEffect(() => {
         dispatch(fetchFirebaseData())
-            .then(() => {
+            .then((data) => {
+                console.log(data)
                 setIsLoading(false);
             })
             .catch((error) => {
@@ -22,21 +23,31 @@ const TodoRooms = () => {
             });
     }, [dispatch]);
 
-    const handleShowMorePosts = () => {
-        if (memoizedData.length <= post.end) {
-            console.log('No more')
-        } else {
-            setPost({start: post.start + 10, end: post.end + 10});
-        }
+    const totalPages = memoizedData ? Math.ceil(memoizedData.length / itemsPerPage) : 0;
 
+
+    const handleShowMorePosts = () => {
+        if (page < totalPages - 1) {
+            setPage(page + 1);
+        }
     };
+
     const handleShowBackPosts = () => {
-        setPost({start: post.start - 10, end: post.end - 10});
+        if (page > 0) {
+            setPage(page - 1);
+        }
     };
+    const handlePageClick = (newPage) => {
+        setPage(newPage);
+    };
+    const startIndex = page * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
+    const pageNumbers = totalPages > 0 ? Array.from({length: totalPages}, (_, index) => index) : [];
 
 
     return (
         <>
+
             <table className="table">
                 <thead>
                 <tr>
@@ -54,7 +65,7 @@ const TodoRooms = () => {
                         <td colSpan="5">Loading data...</td>
                     </tr>
                 ) : (
-                    memoizedData.slice(post.start, post.end).map((item, index) => (
+                    memoizedData.slice(startIndex, endIndex).map((item, index) => (
                         <tr key={index}>
                             <th scope="row">{item.Number}</th>
                             <td>{item.Type}</td>
@@ -62,17 +73,44 @@ const TodoRooms = () => {
                             <td>{item.Price}</td>
                             <td>{item.Guest}</td>
                             <td>
-                                <Link to={`/rooms?roomId=${item.Number}`} className="btn btn-primary">More information</Link>
+                                <Link
+                                    to={`/rooms?roomId=${item.Number}`}
+                                    className="btn btn-primary"
+                                >
+                                    More information
+                                </Link>
                             </td>
                         </tr>
                     ))
                 )}
                 </tbody>
             </table>
-            <button onClick={handleShowBackPosts}>{'<'}</button>
-            <button onClick={handleShowMorePosts}>{'>'}</button>
+            <button
+                onClick={handleShowBackPosts}
+                disabled={page === 0}
+                className="btn btn-primary"
+            >
+                {"<"}
+            </button>
+            {pageNumbers.map((pageNumber) => (
+                <button
+                    key={pageNumber}
+                    onClick={() => handlePageClick(pageNumber)}
+                    className={`btn ${pageNumber === page ? "btn-secondary" : "btn-primary active"}`}
+                >
+                    {pageNumber + 1}
+                </button>
+            ))}
+            <button
+                onClick={handleShowMorePosts}
+                disabled={page === totalPages - 1}
+                className="btn btn-primary"
+            >
+                {">"}
+            </button>
 
         </>
+
     );
 };
 

@@ -1,7 +1,6 @@
 import React from 'react';
 import {Link, useLocation} from "react-router-dom";
 import {HomeFilled} from "@ant-design/icons";
-import {NavLink} from "react-bootstrap";
 
 const SingleRoom =(props)=> {
     const location = useLocation();
