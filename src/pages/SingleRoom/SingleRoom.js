@@ -1,8 +1,10 @@
-import React, {useEffect, useMemo, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Link, useLocation} from "react-router-dom";
 import {HomeFilled} from "@ant-design/icons";
 import {fetchFirebaseData} from "../../redux/thunks/firebaseThunks";
 import {useDispatch, useSelector} from "react-redux";
+import {Button} from 'antd';
+import CollectionCreateForm from "../../components/Layout/Modal";
 
 const SingleRoom = (props) => {
     const location = useLocation();
@@ -11,6 +13,7 @@ const SingleRoom = (props) => {
     const dispatch = useDispatch();
     const [isLoading, setIsLoading] = useState(false);
     const data = useSelector((state) => state.db.data);
+
     useEffect(() => {
         dispatch(fetchFirebaseData(roomId - 1))
             .then((data) => {
@@ -22,6 +25,12 @@ const SingleRoom = (props) => {
                 setIsLoading(false);
             });
     }, [dispatch]);
+    const [open, setOpen] = useState(false);
+    const onCreate = () => {
+        setOpen(false);
+    };
+
+
     return (
         isLoading ?
             <div>
@@ -48,24 +57,45 @@ const SingleRoom = (props) => {
                             </ul>
                         </div>
                     </section>
+
                     <section className="d-flex flex-column check-out w-25 ">
                         <div className="btn-group d-flex justify-content-end">
-                            <button>Check In</button>
-                            <button>Check Out</button>
+                            <Button
+                                type="primary"
+                                onClick={() => {
+                                    setOpen(true);
+                                }}
+                            >
+                                Check In
+                            </Button>
+                            <Button
+                                type="primary"
+                                onClick={() => {
+                                    setOpen(true);
+                                }}
+                            >
+                                Check Out
+                            </Button>
+                            <CollectionCreateForm
+                                open={open}
+                                onCreate={onCreate}
+                                onCancel={() => {
+                                    setOpen(false);
+                                }}
+                            />
                         </div>
                         <div className="d-flex flex-column">
                             <h5 className="d-flex justify-content-start">Features: </h5>
-                                <div className="d-flex flex-column">
-                                {data.Features.map((item)=>(
-
+                            <div className="d-flex flex-column">
+                                {data.Features.map((item) => (
                                     <ul className='list-group d-flex flex-column'>
                                         <li className="list-group-item d-flex align-items-start">
                                             {item}
                                         </li>
                                     </ul>
 
-                            ))}
-                                </div>
+                                ))}
+                            </div>
                         </div>
                     </section>
                 </section>
@@ -77,6 +107,7 @@ const SingleRoom = (props) => {
                         </p>
                     </div>
                 </section>
+
             </div>
             : <div>Loading...</div>
     );
