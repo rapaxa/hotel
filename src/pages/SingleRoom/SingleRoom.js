@@ -4,7 +4,8 @@ import {HomeFilled} from "@ant-design/icons";
 import {fetchFirebaseData} from "../../redux/thunks/firebaseThunks";
 import {useDispatch, useSelector} from "react-redux";
 import {Button} from 'antd';
-import CollectionCreateForm from "../../components/Layout/Modal";
+import CollectionCreateForm from "../../components/Layout/ModalCheckIn";
+import ModalCheckOut from "../../components/Layout/ModalCheckOut";
 
 const SingleRoom = (props) => {
     const location = useLocation();
@@ -17,19 +18,24 @@ const SingleRoom = (props) => {
     useEffect(() => {
         dispatch(fetchFirebaseData(roomId - 1))
             .then((data) => {
-                console.log(data)
                 setIsLoading(true);
             })
             .catch((error) => {
-                console.error("Error fetching data", error);
                 setIsLoading(false);
             });
     }, [dispatch]);
-    const [open, setOpen] = useState(false);
+    const [openCheckIn, setOpenCheckIn] = useState(false);
+    const [openCheckOut, setOpenCheckOut] = useState(false);
+    const [onDisableBtn, setOnDisableBtn] = useState(true)
     const onCreate = () => {
-        setOpen(false);
+        setOpenCheckIn(false);
+        setOnDisableBtn(false)
     };
 
+    const handleOk = () => {
+        setOpenCheckOut(false);
+        setOnDisableBtn(true)
+    };
 
     return (
         isLoading ?
@@ -53,7 +59,7 @@ const SingleRoom = (props) => {
                                 <li className="list-group-item">Type:{data.Type}</li>
                                 <li className="list-group-item">Occupancy:{data.Occupancy}</li>
                                 <li className="list-group-item">Price:{data.Price}</li>
-                                <li className="list-group-item">Quest:{data.Guest}</li>
+                                <li className="list-group-item">Guest:{data.Guest}</li>
                             </ul>
                         </div>
                     </section>
@@ -63,33 +69,43 @@ const SingleRoom = (props) => {
                             <Button
                                 type="primary"
                                 onClick={() => {
-                                    setOpen(true);
+                                    setOpenCheckIn(true);
                                 }}
                             >
                                 Check In
                             </Button>
                             <Button
                                 type="primary"
+                                disabled={onDisableBtn}
                                 onClick={() => {
-                                    setOpen(true);
+                                    setOpenCheckOut(true);
                                 }}
                             >
                                 Check Out
                             </Button>
                             <CollectionCreateForm
-                                open={open}
+                                openCheckIn={openCheckIn}
                                 onCreate={onCreate}
                                 onCancel={() => {
-                                    setOpen(false);
+                                    setOpenCheckIn(false);
                                 }}
+                            />
+                            <ModalCheckOut
+                                onOk={handleOk}
+                                roomId = {roomId -1}
+                                disable={handleOk}
+                                onCancel={() => {
+                                    setOpenCheckOut(false)
+                                }}
+                                openCheckOut={openCheckOut}
                             />
                         </div>
                         <div className="d-flex flex-column">
                             <h5 className="d-flex justify-content-start">Features: </h5>
                             <div className="d-flex flex-column">
-                                {data.Features.map((item) => (
+                                {data.Features.map((item, index) => (
                                     <ul className='list-group d-flex flex-column'>
-                                        <li className="list-group-item d-flex align-items-start">
+                                        <li key={index} className="list-group-item d-flex align-items-start">
                                             {item}
                                         </li>
                                     </ul>

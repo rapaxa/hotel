@@ -4,6 +4,7 @@ import dataBaseReducer from '../slice/firebaseSlice'
 import {persistStore, persistReducer} from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import firebaseSlice from "../slice/firebaseSlice";
+import checkIn from "../slice/checkIn";
 
 const customizedMiddleware = getDefaultMiddleware({
     serializableCheck: false
@@ -22,7 +23,8 @@ const persistedAuthReducer = persistReducer(persistConfig, authReducer);
 export const store = configureStore({
     reducer: {
         auth: persistedAuthReducer,
-        db:firebaseSlice
+        db:firebaseSlice,
+        checkIn:checkIn
 
     },
     devTools: process.env.NODE_ENV !== 'production',
