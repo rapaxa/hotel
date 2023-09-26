@@ -7,26 +7,33 @@ import {Button} from 'antd';
 import CollectionCreateForm from "../../components/Layout/ModalCheckIn";
 import ModalCheckOut from "../../components/Layout/ModalCheckOut";
 
-const SingleRoom = (props) => {
+
+const SingleRoom = () => {
+
+  //use location form url
     const location = useLocation();
     const searchParams = new URLSearchParams(location.search);
     const roomId = searchParams.get('roomId');
     const dispatch = useDispatch();
     const [isLoading, setIsLoading] = useState(false);
     const data = useSelector((state) => state.db.data);
+    //work with module window
+    const [openCheckIn, setOpenCheckIn] = useState(false);
+    const [openCheckOut, setOpenCheckOut] = useState(false);
+    const [onDisableBtn, setOnDisableBtn] = useState(true)
+
 
     useEffect(() => {
-        dispatch(fetchFirebaseData(roomId - 1))
+        dispatch(fetchFirebaseData(roomId -1 ))
             .then((data) => {
+
                 setIsLoading(true);
             })
             .catch((error) => {
                 setIsLoading(false);
             });
     }, [dispatch]);
-    const [openCheckIn, setOpenCheckIn] = useState(false);
-    const [openCheckOut, setOpenCheckOut] = useState(false);
-    const [onDisableBtn, setOnDisableBtn] = useState(true)
+
     const onCreate = () => {
         setOpenCheckIn(false);
         setOnDisableBtn(false)

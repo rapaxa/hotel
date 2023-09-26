@@ -14,7 +14,7 @@ const TodoRooms = () => {
     useEffect(() => {
         dispatch(fetchFirebaseData())
             .then((data) => {
-                console.log(data)
+
                 setIsLoading(false);
             })
             .catch((error) => {

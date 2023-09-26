@@ -1,7 +1,7 @@
 import React, {useState} from "react";
-import {DatePicker, Form, Input, Modal, Radio, Space} from 'antd';
+import {DatePicker, Form, Input, Modal} from 'antd';
 import {useDispatch} from "react-redux";
-import checkIn, {checkInOk} from "../../redux/slice/checkIn";
+import  {checkInOk} from "../../redux/slice/checkIn";
 
 const CollectionCreateForm = ({
                                   openCheckIn,
@@ -23,9 +23,9 @@ const CollectionCreateForm = ({
 
     };
     const handlerSelectDate = (dates) => {
-        const dateOn = dates[0] ? dates[0].format('YYYY - MM - DD') : '';
-        const dateOut = dates[1] ? dates[1].format('YYYY - MM - DD') : '';
-        setSelectedDates({dateOn, dateOut});
+        const dateOn = dates[0] ? dates[0].format('YYYY-MM-DD') : '';
+        const dateOut = dates[1] ? dates[1].format('YYYY-MM-DD') : '';
+        setSelectedDates({dateOn, dateOut})
     }
 
     return (

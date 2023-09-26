@@ -2,7 +2,7 @@ import './auth.css';
 import { useDispatch } from "react-redux";
 import { GoogleAuthProvider, signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 import { auth } from "../../firebase/firebase";
-import { loginFailure, loginSuccess } from "../../redux/slice/auth";
+import {  loginSuccess } from "../../redux/slice/auth";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -17,12 +17,10 @@ const Auth = () => {
         password: yup.string().required().min(6),
     });
 
-    const { register, handleSubmit, formState: { errors } } = useForm({
+    const { register, handleSubmit} = useForm({
         resolver: yupResolver(schema),
     });
 
-    const handleUserLogin = (uid) => {
-    };
 
     const handleLoginError = (error) => {
         console.error('Error:', error);
@@ -57,7 +55,7 @@ const Auth = () => {
                 email: user.email
             };
             dispatch(loginSuccess(userData));
-            navigate('/profile');
+            navigate('/');
         } catch (error) {
             handleLoginError(error);
         }
